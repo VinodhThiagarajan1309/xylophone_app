@@ -14,46 +14,34 @@ void main() {
 }
 
 class PlaySound extends StatelessWidget {
-  // or as a local variable
-  final player = AudioCache();
-
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: buildXyloPhoneKeys(player),
+      children: <Widget>[
+        generateButton(Colors.teal, 1),
+        generateButton(Colors.red, 2),
+        generateButton(Colors.orangeAccent, 3),
+        generateButton(Colors.purple, 4),
+        generateButton(Colors.white, 5),
+        generateButton(Colors.green, 6),
+        generateButton(Colors.blue, 7),
+      ],
     );
   }
 }
 
-List<Widget> buildXyloPhoneKeys(AudioCache player) {
-  var xyloPhoneKeyColors = {
-    Colors.red,
-    Colors.orangeAccent,
-    Colors.purple,
-    Colors.white,
-    Colors.yellow,
-    Colors.blue,
-    Colors.cyan
-  };
-  List<Widget> columnChildren = [];
-  int j = 1;
-  for (var i in xyloPhoneKeyColors) {
-    columnChildren.add(
-      Expanded(
-        child: Container(
-          width: double.infinity,
-          child: FlatButton(
-            color: i,
-            onPressed: () {
-              player.play("note$j.wav");
-              j++;
-            },
-            child: Container(),
-          ),
-        ),
+Widget generateButton(Color color, int noteNumber) {
+  final player = AudioCache();
+  return Expanded(
+    child: Container(
+      width: double.infinity,
+      child: FlatButton(
+        color: color,
+        onPressed: () {
+          player.play("note$noteNumber.wav");
+        },
+        child: Container(),
       ),
-    );
-  }
-
-  return columnChildren;
+    ),
+  );
 }
